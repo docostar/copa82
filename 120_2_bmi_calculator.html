@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        input {
+            width: 150px;
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px;
+            text-align: center;
+        }
+        button {
+            padding: 10px 15px;
+            font-size: 18px;
+            margin: 10px;
+        }
+        #result {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>BMI Calculator</h2>
+
+    <input type="number" id="weight" placeholder="Weight (kg)">
+    <input type="number" id="height" placeholder="Height (cm)">
+    <br>
+    <button onclick="calculateBMI()">Calculate</button>
+    <button onclick="clearFields()">Clear</button>
+
+    <h3 id="result">Your BMI: --</h3>
+    <h4 id="category"></h4>
+
+    <script>
+        function calculateBMI() {
+            let weight = parseFloat(document.getElementById("weight").value);
+            let height = parseFloat(document.getElementById("height").value);
+            height = height/100; 
+
+            if (isNaN(weight) || isNaN(height) || height <= 0 || weight <= 0) {
+                alert("Please enter valid weight and height!");
+                return;
+            }
+
+            let bmi = weight / (height * height);
+            let category = "";
+
+            if (bmi < 18.5) {
+                category = "Underweight";
+            } else if (bmi >= 18.5 && bmi < 25) {
+                category = "Normal weight";
+            } else if (bmi >= 25 && bmi < 29.9) {
+                category = "Overweight";
+            } else {
+                category = "Obese";
+            }
+
+            document.getElementById("result").innerText = "Your BMI: " + bmi.toFixed(2);
+            document.getElementById("category").innerText = "Category: " + category;
+        }
+
+        function clearFields() {
+            document.getElementById("weight").value = "";
+            document.getElementById("height").value = "";
+            document.getElementById("result").innerText = "Your BMI: --";
+            document.getElementById("category").innerText = "";
+        }
+    </script>
+
+</body>
+</html>
